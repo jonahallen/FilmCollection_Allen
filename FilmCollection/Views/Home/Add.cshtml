@@ -1,4 +1,5 @@
-﻿@model Application
+﻿@using FilmCollection_Allen.Models
+@model Application
 @{
     ViewData["Title"] = "Add Movie";
 }
@@ -6,9 +7,15 @@
 <br />
 
 <form method="post">
+    <input type="hidden" asp-for="MovieId" />
 
-    <label asp-for="Category">Category:</label>
-    <input asp-for="Category" /><br />
+    <select asp-for="CategoryId">
+        <option value="">Select a Category</option>
+        @foreach (Category c in ViewBag.Categories)
+        {
+            <option value="@c.CategoryId">@c.CategoryName</option>
+        }
+    </select><br />
 
     <label asp-for="Title">Title:</label>
     <input asp-for="Title" /><br />
@@ -36,9 +43,17 @@
     <label asp-for="LentTo">Lent To:</label>
     <input asp-for="LentTo" /><br />
 
+    <label asp-for="CopiedToPlex">Copied To Plex:</label>
+    <select asp-for="CopiedToPlex">
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+    </select><br />
+
     <label asp-for="Notes">Notes:</label>
     <input asp-for="Notes" /><br /><br />
 
     <button type="submit">Submit</button>
+
+    <div asp-validation-summary="All"></div>
 
 </form>
